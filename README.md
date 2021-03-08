@@ -34,6 +34,14 @@ client [certificate] -> front [CA + proxy] -> webapp [website]
 The newly created certificate is located in `clients/p12` and protected by a password added to the `clients/passwords.txt` file.   
 
 
+- Go to `nginx/conf.d` : `$ cd ../conf.d`
+- Open the `site.example.conf` to adjust the following parameters :
+  - Change the `site.example` value after `server_name` to match your website's URL (2 times).
+  - Change the values after `ssl_certificate` and `ssl_certificate_key` to match your website's certificate.
+  - Change the `http://protectedapp;` value after `proxy_pass` to match your docker application's name or its address (domain name or IP).
+  - **Optional**: change the log's name after `access_log`.
+- **Optional**: change the file's name, as long as its extension is ".conf".
+
 ### 1.2 Client side initialization
 In your browser, to go the *settings* -> *certificate* part. It can have different names, such as "manage certificates" or "view certificates".   
 
