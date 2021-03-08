@@ -1,5 +1,14 @@
 # Authenticating reverse proxy on docker using client certificate authentication
 
+## What is Reverse Proxy Auth
+**Nginx** can easily be configured to act as a **reverse proxy** in order to externaly expose on the same point different web services hosted internaly.
+
+To restrict the access to the content hosted behind the proxy, it is possible to require the users to provide a **personal certificate**. Using this mechanism, you ensure only **trusted users are allowed** to access protected services.
+
+This project provides all the tools needed to easily setup and configure the reverse proxy and the client certificates.
+
+
+
 ## 1. Preparation
 This project requires Docker and Docker-compose to be installed.   
 The docker-compose.yml file describes the architecture of the project.
@@ -91,3 +100,13 @@ Your certificate may be revoked. Check the `revoked` folder.
 
 ### 3.5 That does not work
 Have you tried rebooting ?
+
+Credits:
+- Docker: [https://www.docker.com/](https://www.docker.com/)
+- Docker-compose: [https://docs.docker.com/compose/](https://docs.docker.com/compose/)
+- Nginx: [https://www.nginx.com/](https://www.nginx.com/)
+- OpenSSL [https://www.openssl.org/](https://www.openssl.org/)
+
+Coming later:
+- LDAP based Two Factors Authentication
+- Web interface to manage the PKI
