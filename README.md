@@ -23,7 +23,7 @@ client [certificate] -> front [CA + proxy] -> webapp [website]
 
 ### 1.1 Server initialization
 - Go to `nginx/ssl` : `$ cd nginx/ssl`
-- Edit the `ca/ca.cnf` file to reflect your organization values in the `[ ca_ dn ]` part.
+- Edit the `ca/ca.cnf` file to reflect your organization values in the `[ ca_dn ]` part.
   - Create the certificate authority (CA): `$ ./create_ca.sh`. The file `create_ca.sh` should then by set to mode 000 in order to avoid erasing the issued CA.
 - Edit the `tls/tls.tpl` file to reflect your organization subdomain values in the `[ default ]` part.
   - Create a certificate for the front website `$ ./create_tls.sh site.example`. The DNS name of the website can differ but you have to edit the file generated in `nginx/conf.d` to match the actual name.
