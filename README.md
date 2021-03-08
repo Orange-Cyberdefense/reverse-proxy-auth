@@ -17,8 +17,7 @@ The `nginx/ssl.conf` file is configured to use strong encryption protocols and c
 The `nginx/conf.d/site.example.conf` is configured to listen on ports **80** and **443** and requires clients to use a certificate to authenticate themself. If a client is successfully authenticated, it is redirected to the webapp docker machine.
 
 
-**Architecture:**
-
+#### Architecture:
 client [certificate] -> front [CA + proxy] -> webapp [website]
 
 
