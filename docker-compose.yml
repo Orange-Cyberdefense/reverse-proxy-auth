@@ -1,0 +1,22 @@
+version: '3'
+services:
+  proxy:
+    image: nginx
+    container_name: proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx
+    cap_add:
+      - NET_ADMIN
+    # MUST run defined hosts before running nginx
+    depends_on:
+      - protectedapp
+
+  protectedapp:
+    image: nginxdemos/hello
+    container_name: protectedapp
+    expose: ["80", "443"]
+    cap_add:
+      - NET_ADMIN

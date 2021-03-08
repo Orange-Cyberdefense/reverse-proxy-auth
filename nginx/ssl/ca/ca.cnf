@@ -1,0 +1,95 @@
+[ default ]
+caName = ca
+caDir = ./ca
+
+[ req ]
+default_bits = 4096
+default_md = sha256
+prompt = no
+encrypt_key = yes
+utf8 = yes
+distinguished_name = ca_dn
+req_extensions = ca_reqext
+
+[ ca_dn ]
+0.domainComponent       = "example"
+1.domainComponent       = "site"
+organizationName        = "Your Organization"
+organizationalUnitName  = "You Organization site.example CA"
+commonName              = "You Organization site.example"
+
+[ ca_reqext ]
+keyUsage                = critical,keyCertSign,cRLSign
+basicConstraints        = critical,CA:true
+subjectKeyIdentifier    = hash
+
+[ ca ]
+default_ca              = root_ca               # The default CA section
+
+[ root_ca ]
+certificate             = $caDir/$caName.crt          # The CA cert
+private_key             = $caDir/$caName.key          # CA private key
+new_certs_dir           = $caDir/certificates     # Certificate archive
+serial                  = $caDir/$caName.crt.srl      # Serial number file
+crlnumber               = $caDir/$caName.crl.srl      # CRL number file
+database                = $caDir/$caName.db           # Index file
+unique_subject          = no                    # Require unique subject
+default_days            = 3652                  # How long to certify for
+default_md              = sha256                  # MD to use
+policy                  = match_pol             # Default naming policy
+email_in_dn             = no                    # Add email to cert DN
+preserve                = no                    # Keep passed DN ordering
+name_opt                = ca_default            # Subject DN display options
+cert_opt                = ca_default            # Certificate display options
+copy_extensions         = none                  # Copy extensions from CSR
+x509_extensions         = signing_ca_ext        # Default cert extensions
+default_crl_days        = 365                   # How long before next CRL
+crl_extensions          = crl_ext               # CRL extensions
+
+# Naming policies control which parts of a DN end up in the certificate and
+# under what circumstances certification should be denied.
+
+[ match_pol ]
+domainComponent         = supplied              # 'simple.org'
+organizationName        = supplied              # 'Simple Inc'
+organizationalUnitName  = optional              # Included if present
+commonName              = supplied              # Must be present
+
+[ any_pol ]
+domainComponent         = optional
+countryName             = optional
+stateOrProvinceName     = optional
+localityName            = optional
+organizationName        = optional
+organizationalUnitName  = optional
+commonName              = optional
+emailAddress            = optional
+
+[ root_ca_ext ]
+keyUsage                = critical,keyCertSign,cRLSign
+basicConstraints        = critical,CA:true
+extendedKeyUsage        = serverAuth,clientAuth
+subjectKeyIdentifier    = hash
+authorityKeyIdentifier  = keyid:always
+
+[ client_ext ]
+keyUsage                = critical,digitalSignature,keyEncipherment
+basicConstraints        = CA:false
+extendedKeyUsage        = serverAuth,clientAuth
+subjectKeyIdentifier    = hash
+authorityKeyIdentifier  = keyid:always
+
+[ server_ext ]
+keyUsage                = critical,digitalSignature,keyEncipherment
+basicConstraints        = CA:false
+extendedKeyUsage        = serverAuth,clientAuth
+subjectKeyIdentifier    = hash
+authorityKeyIdentifier  = keyid:always
+
+
+
+# CRL extensions exist solely to point to the CA certificate that has issued
+# the CRL.
+
+[ crl_ext ]
+authorityKeyIdentifier  = keyid:always
